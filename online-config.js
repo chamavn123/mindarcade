@@ -1,2 +1,1 @@
-// Set to the verified multiplayer service origin after deployment.
-window.MINDARCADE_API = '';
+window.MINDARCADE_API = 'https://mindarcade-multiplayer-phuc.onrender.com';
