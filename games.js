@@ -8,6 +8,7 @@ const Rules = (()=>{
  const solved=c=>Object.keys(faces).every(f=>new Set(face(c,f).map(s=>s.color)).size===1);
  function slide(b,i){let z=b.indexOf(0);if(Math.abs(Math.floor(z/4)-Math.floor(i/4))+Math.abs(z%4-i%4)!==1)return b;let a=[...b];[a[z],a[i]]=[a[i],a[z]];return a}
  const winner=b=>{for(let [a,c,d] of [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]])if(b[a]&&b[a]===b[c]&&b[a]===b[d])return b[a];return b.every(Boolean)?'draw':null};
- return {faces,newCube,turn,face,solved,slide,winner};
+ function slice(cube,axis,layer,dir){const n=[0,0,0];n[axis]=1;const rot=v=>{const cross=[n[1]*v[2]-n[2]*v[1],n[2]*v[0]-n[0]*v[2],n[0]*v[1]-n[1]*v[0]];return v.map((_,i)=>(Math.round(n[i]*v[axis]+cross[i]*dir)||0))};return cube.map(s=>s.p[axis]===layer?{...s,p:rot(s.p),n:rot(s.n)}:s)}
+ return {faces,newCube,turn,face,solved,slide,winner,slice};
 })();
 if(typeof module!=='undefined')module.exports=Rules;
