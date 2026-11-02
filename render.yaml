@@ -1,0 +1,16 @@
+{
+  "services": [
+    {
+      "type": "web",
+      "name": "mindarcade-multiplayer-phuc",
+      "runtime": "node",
+      "plan": "free",
+      "repo": "https://github.com/chamavn123/mindarcade",
+      "branch": "main",
+      "buildCommand": "node server/test.cjs",
+      "startCommand": "node server/server.cjs",
+      "healthCheckPath": "/health",
+      "autoDeployTrigger": "commit"
+    }
+  ]
+}

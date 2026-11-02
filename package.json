@@ -1,0 +1,8 @@
+{
+  "name": "mindarcade",
+  "version": "3.0.0",
+  "private": true,
+  "description": "Phuc Vu's game hub and multiplayer server",
+  "engines": { "node": ">=22" },
+  "scripts": { "start": "node server/server.cjs", "test": "node server/test.cjs" }
+}
