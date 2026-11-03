@@ -1,0 +1,8 @@
+(function(root){
+const deck=()=>{let d=Array.from({length:52},(_,i)=>({r:i%13+2,s:Math.floor(i/13)}));for(let i=51;i>0;i--){let j=Math.floor(Math.random()*(i+1));[d[i],d[j]]=[d[j],d[i]]}return d};
+const total=h=>{let v=h.reduce((n,c)=>n+(c.r===14?11:Math.min(10,c.r)),0),a=h.filter(c=>c.r===14).length;while(v>21&&a-->0)v-=10;return v};
+function five(h){let ranks=h.map(c=>c.r).sort((a,b)=>b-a),groups=[...new Set(ranks)].map(r=>[ranks.filter(x=>x===r).length,r]).sort((a,b)=>b[0]-a[0]||b[1]-a[1]),flush=h.every(c=>c.s===h[0].s),u=[...new Set(ranks)],straight=u.length===5?(u[0]-u[4]===4?u[0]:u.join()==='14,5,4,3,2'?5:0):0;if(straight&&flush)return[8,straight];if(groups[0][0]===4)return[7,groups[0][1],groups[1][1]];if(groups[0][0]===3&&groups[1][0]===2)return[6,groups[0][1],groups[1][1]];if(flush)return[5,...ranks];if(straight)return[4,straight];if(groups[0][0]===3)return[3,groups[0][1],...groups.slice(1).map(x=>x[1])];if(groups[0][0]===2&&groups[1][0]===2)return[2,...groups.map(x=>x[1])];if(groups[0][0]===2)return[1,...groups.map(x=>x[1])];return[0,...ranks]}
+const compare=(a,b)=>{for(let i=0;i<Math.max(a.length,b.length);i++){let d=(a[i]||0)-(b[i]||0);if(d)return Math.sign(d)}return 0};
+function rank(h){let best=[];for(let a=0;a<h.length-4;a++)for(let b=a+1;b<h.length-3;b++)for(let c=b+1;c<h.length-2;c++)for(let d=c+1;d<h.length-1;d++)for(let e=d+1;e<h.length;e++){let r=five([h[a],h[b],h[c],h[d],h[e]]);if(compare(r,best)>0||!best.length)best=r}return best}
+root.LoungeRules={deck,total,rank,compare,names:['High card','One pair','Two pair','Three of a kind','Straight','Flush','Full house','Four of a kind','Straight flush']};
+})(typeof module==='object'?module.exports:window);
